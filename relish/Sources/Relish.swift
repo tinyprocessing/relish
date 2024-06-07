@@ -10,7 +10,8 @@ struct Relish: AsyncParsableCommand {
         version: "1.0.0",
         subcommands: [
             Format.self,
-            Environment.self
+            Environment.self,
+            Verify.self
         ]
     )
 

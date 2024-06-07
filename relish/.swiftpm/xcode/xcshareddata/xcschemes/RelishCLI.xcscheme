@@ -56,6 +56,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "environment setup"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "verify pre-commit"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

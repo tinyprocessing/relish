@@ -18,7 +18,7 @@ let package = Package(
         .package(url: "https://github.com/mxcl/Version.git", .exactItem("2.0.1")),
         .package(url: "https://github.com/ChargePoint/xcparse", .exactItem("2.3.1")),
         .package(url: "https://github.com/apple/swift-syntax.git", .exactItem("508.0.0")),
-        .package(url: "https://github.com/kylef/JSONSchema.swift", .exactItem("0.6.0")),
+        .package(url: "https://github.com/kylef/JSONSchema.swift", .exactItem("0.6.0"))
     ],
     targets: [
         .executableTarget(
@@ -33,6 +33,7 @@ let package = Package(
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftParser", package: "swift-syntax"),
                 .product(name: "JSONSchema", package: "JSONSchema.swift")
-            ], path: "Sources")
+            ], path: "Sources"
+        )
     ]
 )

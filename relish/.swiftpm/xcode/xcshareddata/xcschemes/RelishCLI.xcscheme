@@ -52,9 +52,24 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--help"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "environment setup"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "format &quot;~/tiny/relish/relish/&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "RELISHCLI_SHELL"
+            value = "/bin/zsh"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

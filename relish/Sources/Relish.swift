@@ -8,7 +8,10 @@ struct Relish: AsyncParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "A swift command-line tool for managing relish projects",
         version: "1.0.0",
-        subcommands: []
+        subcommands: [
+            Format.self,
+            Environment.self
+        ]
     )
 
     struct Options: ParsableArguments {

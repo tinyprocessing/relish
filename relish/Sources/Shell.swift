@@ -12,6 +12,11 @@ struct Shell {
         var description: String {
             switch self {
             case .failure(let shell, let code, let errorOutput):
+                if shell.command.contains("cleanup") {
+                    if let output = errorOutput {
+                        return "\n\t" + output
+                    }
+                }
                 var description = "Command \"\(shell.command)\" failed with code \(code)"
                 if let output = errorOutput {
                     description += " and error:\n\t \(output)"

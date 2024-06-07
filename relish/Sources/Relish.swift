@@ -11,7 +11,8 @@ struct Relish: AsyncParsableCommand {
         subcommands: [
             Format.self,
             Environment.self,
-            Verify.self
+            Verify.self,
+            Sort.self
         ]
     )
 

@@ -65,35 +65,6 @@ custom_rules:
             instead.
         name: Prohibit direct calls to launch() in tests
         regex: (launch\(\))
-    ld_base_views:
-        excluded: Platform/GlassPlatform/LivingDesign/
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Use of LDBaseView was moved to WalmartUI, please use the base views
-            in WalmartUI exclusively.
-        name: LDBaseView|LDBaseControl|LDBaseViewController|LDViewConstructable will
-            be removed.
-        regex: (LDBaseView|LDBaseControl|LDBaseViewController|LDViewConstructable)
-    ld_root_views:
-        excluded: /Platform/GlassPlatform/LivingDesign/
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Use of LDRootView is not supported. Please use BaseView in WalmartUI
-            instead.
-        name: LDRootView|LDRootControl|LDRootViewController|LDRootConstructable are
-            for internal use only.
-        regex: (LDRootView|LDRootControl|LDRootViewController|LDRootViewConstructable)
-    ld_tab_navigation:
-        excluded: Platform/GlassPlatform/LivingDesign/
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Use of LDTabNavigation was updated, please use the latest version
-            by removing all uses of Deprecated values.
-        name: LDTabNavigationDeprecated will be removed.
-        regex: (LDTabNavigationDeprecated|LDTabNavigationSelectionDelegateDeprecated)
     limit_combine_global_queue:
         included: .*\.swift
         match_kinds:
@@ -116,7 +87,7 @@ custom_rules:
         name: Restrict Combine subscribe on usage
         regex: (.subscribe\(on:)
     limit_datasource_usage:
-        excluded: Platform/|Plugins/(Home|MyItems|Marketplace)/.*\.swift
+        excluded: Platform/
         included: .*\.swift
         match_kinds:
         - identifier
@@ -150,77 +121,6 @@ custom_rules:
             waitForExistence/waitForAbsence.
         name: Prohibit counterintuitive waits
         regex: XCTAssertFalse\([a-zA-Z\.\[\]\(\:\n\t" ]+(waitForExistence|waitForAbsence)\(
-    no_direct_UIAccessibilityVoiceOver_usage:
-        included: Plugins/Checkout/.*\.swift
-        match_kinds:
-        - argument
-        - attribute.builtin
-        - attribute.id
-        - buildconfig.id
-        - buildconfig.keyword
-        - identifier
-        - keyword
-        - number
-        - objectliteral
-        - parameter
-        - placeholder
-        - string_interpolation_anchor
-        - typeidentifier
-        message: Direct usage of UIAccessibility voiceOver static methods is prohibited.
-            Please use global var voiceOverHelper instead.
-        name: No direct UIAccessibility usage in Checkout
-        regex: (UIAccessibility\.focusedElement\()|(UIAccessibility\.post\()|(UIAccessibility\.isVoiceOverRunning)|(UIAccessibility\.elementFocusedNotification)|(UIAccessibility\.voiceOverStatusDidChangeNotification)|(UIAccessibility\.announcementDidFinishNotification)|(UIAccessibility\.elementFocusedNotification)
-    no_direct_assert_usage:
-        excluded: Platform/|.*Test.*|(Plugins|markets|Modules)/.*/.*App.*/.*
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of assert is prohibited. Please use asserts available
-            in DiagnosticAssertions instead.
-        name: Prohibit direct assert ussage
-        regex: (assert\()|(assertionFailure\()
-    no_direct_base_scanner_api_usage:
-        excluded: Platform/|Plugins/Scanner|Plugins/ScanAndGo|Plugins/SNG|GlobalScannerAPI.swift|ScannerAPI.swift|ScannerAPIMock.swift|ScanAndGoAPI.swift|.*Test.*
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of BaseScanner API is prohibited.
-        name: No direct BaseScanner API usage
-        regex: (makeBaseScanner)
-    no_direct_keychain_usage:
-        excluded: Platform/|.*Test.*
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of keychain apis are prohibited. Please see WalmartPlatform.PreferencesStorage
-        name: No direct keychain usage
-        regex: (ELKeychain)|( Keychain\()|(SecItem.*)|(kSec.*)
-    no_direct_uinavbarappearance_usage:
-        excluded: Platform/|AppDelegate.swift|AppearanceStyler.swift|.*Test.*
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of UINavigationBar.appearance() is prohibited. Please
-            use ViewController specific navigation bar. See sample code piece at https://confluence.walmart.com/display/PG/Glass-iOS+Navigation+bar+appearance
-        name: No direct UINavigationBar.appearance usage
-        regex: (UINavigationBar.appearance)
-    no_direct_user_defaults_usage:
-        excluded: Platform/|.*Test.*
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of UserDefaults is prohibited. Please see WalmartPlatform.PreferencesStorage
-        name: No direct UserDefaults usage
-        regex: (UserDefaults\.)|( UserDefaults)
-    no_middleware_usage:
-        excluded: Platform/|(Plugins|markets|Modules)/.*/.*App.*/.*|.*Test.*|Plugins/(BotDetection|DebugPanel|NetworkingMiddleware)/.*\.swift|Modules/WalmartPlatformExtensions/WalmartPlatformExtensions/Sources/Networking/Networking\+Mocking.swift
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of middleware is prohibited. Please see NetworkingMiddleware
-            plugin for more info.
-        name: Prohibit direct middleware ussage
-        regex: addMiddleware\(
     no_print_or_debugprint_or_NSLog_usage:
         excluded: Platform/|.*Test.*
         included: .*\.swift
@@ -229,15 +129,6 @@ custom_rules:
         message: Usage of print, debugPrint or NSLog statements is prohibited.
         name: No print, debugPring or NSLog usage
         regex: ((\bprint)|(Swift\.print)|(\bdebugPrint)|(Swift\.debugPrint)|(\bNSLog))\s*\(
-    no_url_session_usage:
-        excluded: Platform/|.*Test.*|Modules/WalmartPlatformExtensions/WalmartPlatformExtensions/Sources/Container/Container.swift|WalmartNotificationService/NotificationService.swift
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of URLSession is prohibited. Please use the Platform
-            provided Networking api by accessing it from the container.
-        name: No direct URLSession usage
-        regex: (URLSession\.)|(URLSession\()
     no_window_usage_in_tests:
         included: .*Tests.swift
         match_kinds:
@@ -245,24 +136,6 @@ custom_rules:
         message: UIWindow usage in tests is prohibited in tests, use MockWindow instead.
         name: Prohibit UIWindow usage in tests
         regex: (UIWindow)
-    only_walmart_instance:
-        excluded: Platform/|.*Test.*|Modules/WalmartPlatformExtensions/WalmartPlatformExtensions/Sources/Container/Container.swift|WalmartNotificationService/NotificationService.swift
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: Direct usage of Networking is prohibited. Please use the shared instance
-            by accessing it from the container.
-        name: No duplicate Networking instances.
-        regex: ([^(setup)]Networking\()
-    product_metrics_deprecation:
-        excluded: Platform/GlassPlatform/WalmartUI/
-        included: .*\.swift
-        match_kinds:
-        - identifier
-        message: 'Use of ProductMetrics is deprecated. Use UIView dataSensitivityLevel
-            property instead. see migration guide: https://wmlink/qm-sensitivity-config'
-        name: Use of ProductMetrics is deprecated.
-        regex: ^(\w?|\w+)\.[maskView|maskText|encryptView]+\(\w+\)
     space_colon_protocol:
         included: .*\.swift
         message: Please remove the space before the colon
@@ -328,9 +201,6 @@ excluded:
 - Carthage
 - fastlane
 - Modules/*/*GQL/
-- Platform/GlassPlatform/Dependencies/analytics-stub-generator-ios/
-- Platform/GlassCLI
-- Platform/PlatformAPIs/TempoAPI/TempoAPITests/Sources/GraphQL
 - Plugins/*/*GQL/
 - scripts
 - Tuist

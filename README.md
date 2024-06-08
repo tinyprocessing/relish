@@ -1,4 +1,3 @@
-```markdown
 # Relish - Compact Swift Command Line Tool for Your Xcode Project
 
 Welcome to Relish, a compact and powerful Swift command-line tool designed to enhance your Xcode project workflow. Relish provides a suite of helpful commands to streamline technical services, automate pre-commit hooks in Git, and verify code changes efficiently. By working directly with Git, Relish analyzes your code to identify common issues, manage linting, and optimize your Xcode project file, thereby minimizing conflicts and formatting your code consistently.

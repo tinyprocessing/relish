@@ -28,7 +28,8 @@ struct Setup: RelishCommand {
 
     func runCommand() async throws {
         let commands = [
-            "brew install swiftformat"
+            "brew install swiftformat",
+            "brew install swiftlint"
         ]
 
         for command in commands {

@@ -1,0 +1,355 @@
+allow_zero_lintable_files: true
+custom_rules:
+    arrow_formatting:
+        included: .*\.swift
+        match_kinds:
+        - argument
+        - attribute.builtin
+        - attribute.id
+        - buildconfig.id
+        - buildconfig.keyword
+        - identifier
+        - keyword
+        - number
+        - objectliteral
+        - parameter
+        - placeholder
+        - string_interpolation_anchor
+        - typeidentifier
+        message: -> Should have spaces or line breaks around it
+        name: Spaces or line breaks around ->
+        regex: "[^ \n]->|->[^ \n]"
+    double_space:
+        included: .*\.swift
+        match_kinds:
+        - argument
+        - attribute.builtin
+        - attribute.id
+        - buildconfig.id
+        - buildconfig.keyword
+        - identifier
+        - keyword
+        - number
+        - objectliteral
+        - parameter
+        - placeholder
+        - string_interpolation_anchor
+        - typeidentifier
+        message: Should only have a single space
+        name: Double space
+        regex: '[a-zA-Z0-9_:\(\)\{\}\.]  +[a-zA-Z0-9_:\(\)\{\}\.]'
+    equal_formatting:
+        included: .*\.swift
+        match_kinds:
+        - argument
+        - attribute.builtin
+        - attribute.id
+        - buildconfig.id
+        - buildconfig.keyword
+        - identifier
+        - keyword
+        - number
+        - objectliteral
+        - parameter
+        - placeholder
+        - string_interpolation_anchor
+        - typeidentifier
+        message: = Should have spaces around it
+        name: Spaces around =
+        regex: "[^ \n!~=<>+-=*//|]=|=[^ \n=]"
+    launch_and_wait_in_tests:
+        included: .*Tests.swift
+        match_kinds:
+        - identifier
+        message: Direct use of launch() in tests is prohibited, use launchAndWait()
+            instead.
+        name: Prohibit direct calls to launch() in tests
+        regex: (launch\(\))
+    ld_base_views:
+        excluded: Platform/GlassPlatform/LivingDesign/
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Use of LDBaseView was moved to WalmartUI, please use the base views
+            in WalmartUI exclusively.
+        name: LDBaseView|LDBaseControl|LDBaseViewController|LDViewConstructable will
+            be removed.
+        regex: (LDBaseView|LDBaseControl|LDBaseViewController|LDViewConstructable)
+    ld_root_views:
+        excluded: /Platform/GlassPlatform/LivingDesign/
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Use of LDRootView is not supported. Please use BaseView in WalmartUI
+            instead.
+        name: LDRootView|LDRootControl|LDRootViewController|LDRootConstructable are
+            for internal use only.
+        regex: (LDRootView|LDRootControl|LDRootViewController|LDRootViewConstructable)
+    ld_tab_navigation:
+        excluded: Platform/GlassPlatform/LivingDesign/
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Use of LDTabNavigation was updated, please use the latest version
+            by removing all uses of Deprecated values.
+        name: LDTabNavigationDeprecated will be removed.
+        regex: (LDTabNavigationDeprecated|LDTabNavigationSelectionDelegateDeprecated)
+    limit_combine_global_queue:
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: It looks like you are telling combine to receive on a concurrent
+            queue. This is probably not what you want as it can cause values to be
+            lost.
+        name: Restrict Combine Global Queue usage
+        regex: '((receive|bufferReceive)\(on: DispatchQueue.global)'
+    limit_combine_subscribe_on:
+        excluded: Platform/
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: It looks like you are telling combine to subscribe on a different
+            queue. This tells combine to handle its receive subscription events on
+            a separate thread. This can cause undesirable behavior. If this is certainly
+            what you need feel free to add a comment ignoring this lint check for
+            this line only.
+        name: Restrict Combine subscribe on usage
+        regex: (.subscribe\(on:)
+    limit_datasource_usage:
+        excluded: Platform/|Plugins/(Home|MyItems|Marketplace)/.*\.swift
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        - typeidentifier
+        message: DataSource is currently in development, and is not yet intended for
+            wide adoption. See 'DataSource/Readme.md' for more information.
+        name: Limit DataSource usage while in BETA
+        regex: (DataSource(Action|Middleware|State))
+    no_bool_random:
+        excluded: .*Tests\.swift
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Use of Bool.random is not recommended please give extra consideration
+            when using this feature. Are you building a lottery system?
+        name: Restrict usage of Bool.random()
+        regex: (Bool\.random\()
+    no_bool_random_in_tests:
+        included: .*Tests\.swift
+        match_kinds:
+        - identifier
+        message: Use of Bool.random is not allowed in tests. This leads to flaky or
+            ambiguous behavior.
+        name: Prohibit Bool.random() usage in tests
+        regex: (Bool\.random\()
+    no_counterintuitive_waits:
+        included: .*Tests.swift
+        match_kinds:
+        - identifier
+        message: You should not assert the opposite of a wait call. Assert true on
+            waitForExistence/waitForAbsence.
+        name: Prohibit counterintuitive waits
+        regex: XCTAssertFalse\([a-zA-Z\.\[\]\(\:\n\t" ]+(waitForExistence|waitForAbsence)\(
+    no_direct_UIAccessibilityVoiceOver_usage:
+        included: Plugins/Checkout/.*\.swift
+        match_kinds:
+        - argument
+        - attribute.builtin
+        - attribute.id
+        - buildconfig.id
+        - buildconfig.keyword
+        - identifier
+        - keyword
+        - number
+        - objectliteral
+        - parameter
+        - placeholder
+        - string_interpolation_anchor
+        - typeidentifier
+        message: Direct usage of UIAccessibility voiceOver static methods is prohibited.
+            Please use global var voiceOverHelper instead.
+        name: No direct UIAccessibility usage in Checkout
+        regex: (UIAccessibility\.focusedElement\()|(UIAccessibility\.post\()|(UIAccessibility\.isVoiceOverRunning)|(UIAccessibility\.elementFocusedNotification)|(UIAccessibility\.voiceOverStatusDidChangeNotification)|(UIAccessibility\.announcementDidFinishNotification)|(UIAccessibility\.elementFocusedNotification)
+    no_direct_assert_usage:
+        excluded: Platform/|.*Test.*|(Plugins|markets|Modules)/.*/.*App.*/.*
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of assert is prohibited. Please use asserts available
+            in DiagnosticAssertions instead.
+        name: Prohibit direct assert ussage
+        regex: (assert\()|(assertionFailure\()
+    no_direct_base_scanner_api_usage:
+        excluded: Platform/|Plugins/Scanner|Plugins/ScanAndGo|Plugins/SNG|GlobalScannerAPI.swift|ScannerAPI.swift|ScannerAPIMock.swift|ScanAndGoAPI.swift|.*Test.*
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of BaseScanner API is prohibited.
+        name: No direct BaseScanner API usage
+        regex: (makeBaseScanner)
+    no_direct_keychain_usage:
+        excluded: Platform/|.*Test.*
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of keychain apis are prohibited. Please see WalmartPlatform.PreferencesStorage
+        name: No direct keychain usage
+        regex: (ELKeychain)|( Keychain\()|(SecItem.*)|(kSec.*)
+    no_direct_uinavbarappearance_usage:
+        excluded: Platform/|AppDelegate.swift|AppearanceStyler.swift|.*Test.*
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of UINavigationBar.appearance() is prohibited. Please
+            use ViewController specific navigation bar. See sample code piece at https://confluence.walmart.com/display/PG/Glass-iOS+Navigation+bar+appearance
+        name: No direct UINavigationBar.appearance usage
+        regex: (UINavigationBar.appearance)
+    no_direct_user_defaults_usage:
+        excluded: Platform/|.*Test.*
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of UserDefaults is prohibited. Please see WalmartPlatform.PreferencesStorage
+        name: No direct UserDefaults usage
+        regex: (UserDefaults\.)|( UserDefaults)
+    no_middleware_usage:
+        excluded: Platform/|(Plugins|markets|Modules)/.*/.*App.*/.*|.*Test.*|Plugins/(BotDetection|DebugPanel|NetworkingMiddleware)/.*\.swift|Modules/WalmartPlatformExtensions/WalmartPlatformExtensions/Sources/Networking/Networking\+Mocking.swift
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of middleware is prohibited. Please see NetworkingMiddleware
+            plugin for more info.
+        name: Prohibit direct middleware ussage
+        regex: addMiddleware\(
+    no_print_or_debugprint_or_NSLog_usage:
+        excluded: Platform/|.*Test.*
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Usage of print, debugPrint or NSLog statements is prohibited.
+        name: No print, debugPring or NSLog usage
+        regex: ((\bprint)|(Swift\.print)|(\bdebugPrint)|(Swift\.debugPrint)|(\bNSLog))\s*\(
+    no_url_session_usage:
+        excluded: Platform/|.*Test.*|Modules/WalmartPlatformExtensions/WalmartPlatformExtensions/Sources/Container/Container.swift|WalmartNotificationService/NotificationService.swift
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of URLSession is prohibited. Please use the Platform
+            provided Networking api by accessing it from the container.
+        name: No direct URLSession usage
+        regex: (URLSession\.)|(URLSession\()
+    no_window_usage_in_tests:
+        included: .*Tests.swift
+        match_kinds:
+        - identifier
+        message: UIWindow usage in tests is prohibited in tests, use MockWindow instead.
+        name: Prohibit UIWindow usage in tests
+        regex: (UIWindow)
+    only_walmart_instance:
+        excluded: Platform/|.*Test.*|Modules/WalmartPlatformExtensions/WalmartPlatformExtensions/Sources/Container/Container.swift|WalmartNotificationService/NotificationService.swift
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: Direct usage of Networking is prohibited. Please use the shared instance
+            by accessing it from the container.
+        name: No duplicate Networking instances.
+        regex: ([^(setup)]Networking\()
+    product_metrics_deprecation:
+        excluded: Platform/GlassPlatform/WalmartUI/
+        included: .*\.swift
+        match_kinds:
+        - identifier
+        message: 'Use of ProductMetrics is deprecated. Use UIView dataSensitivityLevel
+            property instead. see migration guide: https://wmlink/qm-sensitivity-config'
+        name: Use of ProductMetrics is deprecated.
+        regex: ^(\w?|\w+)\.[maskView|maskText|encryptView]+\(\w+\)
+    space_colon_protocol:
+        included: .*\.swift
+        message: Please remove the space before the colon
+        name: Colon in protocol declaration
+        regex: '(protocol|extension)\s+\w+\s+:'
+    terminate_and_wait_in_tests:
+        included: .*Tests.swift
+        match_kinds:
+        - identifier
+        message: Direct use of terminate() in tests is prohibited, use terminateAndWait()
+            instead.
+        name: Prohibit direct calls to terminate() in tests
+        regex: (terminate\(\))
+disabled_rules:
+- colon
+- comment_spacing
+- cyclomatic_complexity
+- discouraged_direct_init
+- file_length
+- for_where
+- force_cast
+- function_body_length
+- function_parameter_count
+- identifier_name
+- large_tuple
+- legacy_random
+- inclusive_language
+- nesting
+- notification_center_detachment
+- opening_brace
+- redundant_string_enum_value
+- todo
+- type_body_length
+- type_name
+- superfluous_disable_command
+- unneeded_override
+- duplicate_conditions
+- closure_parameter_position
+- unneeded_synthesized_initializer
+- void_function_in_ternary
+- unavailable_condition
+- empty_enum_arguments
+- orphaned_doc_comment
+- blanket_disable_command
+- is_disjoint
+- invalid_swiftlint_command
+- unused_optional_binding
+- class_delegate_protocol
+- control_statement
+- duplicate_imports
+- trailing_comma
+- switch_case_alignment
+- reduce_boolean
+- unused_setter_value
+- shorthand_operator
+- flatmap_over_map_reduce
+- weak_delegate
+excluded:
+- build
+- derivedData
+- DerivedData
+- BuildSupport
+- Carthage
+- fastlane
+- Modules/*/*GQL/
+- Platform/GlassPlatform/Dependencies/analytics-stub-generator-ios/
+- Platform/GlassCLI
+- Platform/PlatformAPIs/TempoAPI/TempoAPITests/Sources/GraphQL
+- Plugins/*/*GQL/
+- scripts
+- Tuist
+included: []
+opt_in_rules:
+- line_length
+- closure_end_indentation
+- closure_spacing
+- empty_count
+- sorted_imports
+- overridden_super_call
+- redundant_nil_coalescing
+- prohibited_interface_builder
+- redundant_objc_attribute
+- redundant_optional_initialization
+- redundant_set_access_control
+- yoda_condition
+type_name:
+    allowed_symbols: _
+    max_length: 64
+    min_length: 2
+warning_threshold: 1

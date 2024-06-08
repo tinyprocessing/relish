@@ -12,7 +12,7 @@ struct LargeFileVerification: ChangeVerification {
         let largeFiles = try context.files
             .filter { $0.status == .added || $0.status == .modified }
             .compactMap { try File(fileURL: $0.url) }
-            .filter { !isFileExempt($0) && isFileTooFat($0) }
+            .filter { isFileTooFat($0) }
 
         guard largeFiles.isNotEmpty else {
             return
@@ -60,7 +60,6 @@ extension LargeFileVerification {
 
             fileExtension = fileURL.pathExtension
             self.filePath = filePath
-
             let attributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
             fileSize = attributes[.size] as? UInt64 ?? 0
         }

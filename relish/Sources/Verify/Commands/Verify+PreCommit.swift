@@ -45,5 +45,6 @@ extension Verify.PreCommit {
         ProjectIntegrityChangeVerification(verbose: isVerbose)
         ProjectSortChangeVerification(modifyInPlace: modifyProjectFileInPlace, verbose: isVerbose)
         try LargeFileVerification(configuration: Relish.load(VerificationConfiguration.self).fileSize)
+        SwiftLintChangeVerification()
     }
 }

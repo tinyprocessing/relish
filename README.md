@@ -16,7 +16,7 @@ To install Relish, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/relish.git
+   git clone https://github.com/tinyprocessing/relish.git
    ```
 
 2. Navigate to the Relish directory:
@@ -41,6 +41,11 @@ This command will install dependencies using Homebrew, including SwiftFormat and
 ### Commands
 
 Relish comes with several built-in commands to help manage your project:
+
+- **Format**: Formats your Xcode project files
+  ```sh
+  relish format /Sources
+  ```
 
 - **Sort**: Sorts your Xcode project file to minimize conflicts.
   ```sh

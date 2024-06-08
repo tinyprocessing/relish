@@ -6,6 +6,7 @@ struct ProjectIntegrityChangeVerification: ChangeVerification {
         case changes(files: Set<URL>)
     }
 
+    var verbose: Bool
     let name = "Project Integrity"
     let description = """
     Verifies that there are no integrity issues in Xcode project files.
@@ -17,7 +18,7 @@ struct ProjectIntegrityChangeVerification: ChangeVerification {
     }
 
     func perform(on verificationType: VerificationType) async throws {
-        let verifier = try await ProjectIntegrityVerifier.make()
+        let verifier = try await ProjectIntegrityVerifier.make(verbose: verbose)
 
         do {
             switch verificationType {

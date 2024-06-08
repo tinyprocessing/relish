@@ -6,6 +6,7 @@ struct DeadReferenceProjectVerification: ProjectIntegrityVerification {
     private static let extensionIgnoreList: Set<String> = ["xcframework"]
     private static let carthageFolder = "Carthage"
 
+    var verbose: Bool
     func verifyProject(
         _ projectContext: XcodeWorkspace.ProjectContext,
         using context: ProjectIntegrityWorkspaceContext
@@ -29,8 +30,19 @@ struct DeadReferenceProjectVerification: ProjectIntegrityVerification {
 
         let relativePaths = deadReferences.map { $0.absoluteString }
 
+        let allReferences = projectContext.project.pbxproj.fileReferences
+            .compactMap {
+                $0.absoluteURL(from: projectContext.projectDirectory)?.relativeString
+            }.joined(separator: "\n")
+
+        printIfVerbose(verbose, """
+        All file references:
+        \(allReferences)
+        """)
+
         return ProjectIntegrityFailure.Issue(
             description: """
+            Project Error: \(projectContext.url.relativeString)
             \(projectContext.name) contains broken ('dead') file references:
               - \(relativePaths.joined(separator: "\n  - "))
             """,

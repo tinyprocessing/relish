@@ -19,6 +19,7 @@ struct ProjectIntegrityVerifier {
         Logger.console
     }
 
+    var verbose: Bool
     func verify(_ files: Set<URL>) throws {
         let projectFiles = Array(files.filter { $0.pathExtension == "pbxproj" })
         let changedProjectNames = Set(projectFiles
@@ -51,7 +52,7 @@ struct ProjectIntegrityVerifier {
 
     func verifyProject(_ projectContext: XcodeWorkspace.ProjectContext) throws -> [ProjectIntegrityFailure.Issue] {
         let verifications: [ProjectIntegrityVerification] = [
-            DeadReferenceProjectVerification()
+            DeadReferenceProjectVerification(verbose: verbose)
         ]
 
         return try verifications.compactMap { verification in
@@ -62,13 +63,13 @@ struct ProjectIntegrityVerifier {
 
 extension ProjectIntegrityVerifier {
     /// Creates and returns a verifier using the project files in the repository.
-    static func make() async throws -> Self {
+    static func make(verbose: Bool) async throws -> Self {
         async let workspace = XcodeWorkspace.relish()
 
         return try ProjectIntegrityVerifier(
             context: ProjectIntegrityWorkspaceContext(
                 workspace: await workspace
-            )
+            ), verbose: verbose
         )
     }
 }

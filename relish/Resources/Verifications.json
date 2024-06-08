@@ -1,0 +1,47 @@
+{
+  "projectIntegrity": {
+    "pluginImportVerification": {
+      "apiTargets": [],
+      "targetExceptions": []
+    }
+  },
+  "fileSize": {
+    "exceptions": {
+      "fileExtensions": ["graphqls", "pbxproj", "mobileprovision"],
+      "files": []
+    },
+    "size": {
+      "limit": 750,
+      "fileExtensions": [
+        {
+          "name": "swift",
+          "limit": 900
+        },
+        {
+          "name": "json",
+          "limit": 900
+        },
+        {
+          "name": "pdf",
+          "limit": 500
+        },
+        {
+          "name": "png",
+          "limit": 500
+        },
+        {
+          "name": "svg",
+          "limit": 500
+        },
+        {
+          "name": "jpg",
+          "limit": 500
+        },
+        {
+          "name": "usdz",
+          "limit": 10000
+        }
+      ]
+    }
+  }
+}

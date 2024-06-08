@@ -42,6 +42,8 @@ extension Verify.PreCommit {
         modifyProjectFileInPlace: Bool = true,
         isVerbose: Bool
     ) throws -> [any ChangeVerification] {
-        ProjectIntegrityChangeVerification()
+        ProjectIntegrityChangeVerification(verbose: isVerbose)
+        ProjectSortChangeVerification(modifyInPlace: modifyProjectFileInPlace, verbose: isVerbose)
+        try LargeFileVerification(configuration: Relish.load(VerificationConfiguration.self).fileSize)
     }
 }

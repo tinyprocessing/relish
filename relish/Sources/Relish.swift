@@ -25,6 +25,15 @@ struct Relish: AsyncParsableCommand {
                                    visibility: .hidden))
         var requiredEnvironment: CommandEnvironment?
     }
+
+    static func load<Configuration: RelishRawConfigurable>(
+        _ type: Configuration.Type
+    ) throws -> Configuration where Configuration.RawConfiguration: RelishRawConfiguration {
+        let homeDirectoryURL = FileManager.default.homeDirectoryForCurrentUser
+        let fileURL = homeDirectoryURL.appendingPathComponent("relish/\(Configuration.RawConfiguration.fileName).json")
+        let json = try JSONDecoder().decode(Configuration.RawConfiguration.self, from: Data(contentsOf: fileURL))
+        return try Configuration(from: json)
+    }
 }
 
 // MARK: - CommandEnvironment

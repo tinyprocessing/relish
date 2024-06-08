@@ -32,7 +32,7 @@ extension Format {
             isVerbose ? Logger.verboseConsole : Logger.console
         }
 
-        var formatCommand: String { "swiftformat --config ~/.relishformat \(path)" }
+        var formatCommand: String { "swiftformat --config ~/relish/.relishformat \(path)" }
 
         func runCommand() async throws {
             console.log(.step("Formatting Swift file(s): \(path)"))

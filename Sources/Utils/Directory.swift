@@ -163,7 +163,31 @@ class Directory {
     }
 
     func repoRoot() throws -> String {
-        return currentPath
+        guard !(try directoryContents(atPath: currentPath)
+            .contains(where: { $0.hasSuffix(Self.relishPlist) }))
+        else {
+            return currentPath
+        }
+
+        var path = URL(fileURLWithPath: currentPath)
+
+        while path.absoluteString != "/" {
+            let resourceInfo = try path.resourceValues(forKeys: [.isDirectoryKey, .parentDirectoryURLKey])
+
+            guard let parent = resourceInfo.parentDirectory?.path.removingPercentEncoding else {
+                return path.absoluteString
+            }
+
+            let contents = try directoryContents(atPath: parent)
+
+            if contents.contains(where: { $0.hasSuffix(Self.relishPlist) }) {
+                return parent
+            }
+
+            path = URL(fileURLWithPath: parent)
+        }
+
+        return path.absoluteString
     }
 
     func isFileInRootDirectory(_ url: URL) throws -> Bool {

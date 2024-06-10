@@ -20,7 +20,7 @@ from xUnique import XUnique
 
 def _list_all_pbxproj():
     """Lists all PBXProj files"""
-    directories = ["."]
+    directories = [".", "platform/ios"]
     file_paths = set()
     for directory in directories:
         for dirpath, _, files in os.walk(directory):

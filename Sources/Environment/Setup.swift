@@ -29,7 +29,8 @@ struct Setup: RelishCommand {
     func runCommand() async throws {
         let commands = [
             "brew install swiftformat",
-            "brew install swiftlint"
+            "brew install swiftlint",
+            "git config core.hooksPath .githooks"
         ]
 
         for command in commands {

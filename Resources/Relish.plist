@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>APP_NAME</key>
+	<string>Relish</string>
+	<key>RELISH_CLI_VERSION</key>
+	<string>1.0.0</string>
+	<key>XCODE_COMPATIBILITY_VERSION</key>
+	<string>Xcode 15.1.0</string>
+	<key>XCODE_DEV_VERSION</key>
+	<string>15.4.0</string>
+	<key>XCODE_VERSION</key>
+	<string>15.1.0</string>
+</dict>
+</plist>

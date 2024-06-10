@@ -39,8 +39,7 @@ struct ProjectSortChangeVerification: ChangeVerification {
         let console = Console<Never>(isVerbose: verbose)
 
         do {
-            let projectURL = try makeProjectURL(from: file)
-            let command = "python3 \(ProjectSortChangeVerification.script) -t --files \(projectURL.path())"
+            let command = "python3 \(ProjectSortChangeVerification.script) -t --files \(file.url.path)"
             let shell = Shell(command: command)
             try await shell.process()
 

@@ -5,7 +5,9 @@ struct Verify: RelishCommand {
     static let configuration: CommandConfiguration = .init(
         abstract: "Verify changes to workspace!",
         subcommands: [
-            PreCommit.self
+            PreCommit.self,
+            Project.self,
+            ProjectSettings.self
         ]
     )
 

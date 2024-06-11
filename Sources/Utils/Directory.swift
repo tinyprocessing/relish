@@ -163,7 +163,7 @@ class Directory {
     }
 
     func repoRoot() throws -> String {
-        guard !(try directoryContents(atPath: currentPath)
+        guard try !(directoryContents(atPath: currentPath)
             .contains(where: { $0.hasSuffix(Self.relishPlist) }))
         else {
             return currentPath

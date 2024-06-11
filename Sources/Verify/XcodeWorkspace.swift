@@ -94,11 +94,31 @@ extension XcodeWorkspace {
     /// Creates and returns a workspace object with all of the Xcode projects in the repository.
     static func relish() async throws -> Self {
         let directory = Directory()
-        let contents = try directory.directoryContents(atPath: directory.currentPath)
-        let projectFiles: [URL] = contents
-            .compactMap { URL(string: $0) }
-            .filter { $0.pathExtension == "xcodeproj" }
-        return try workspace(from: projectFiles)
+        let repoRoot = try directory.repoRootURL
+        let projectURLs: [URL] = loadProjectFiles(from: repoRoot.path + "/Relish.plist")?.compactMap {
+            let url = repoRoot.appending(path: $0.path)
+            return url
+        } ?? []
+        return try workspace(from: projectURLs)
+    }
+
+    static func loadProjectFiles(from path: String) -> [ProjectFile]? {
+        let url = URL(fileURLWithPath: path)
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+
+        guard let plistDict = try? PropertyListSerialization.propertyList(from: data,
+                                                                          options: [],
+                                                                          format: nil) as? [String: Any],
+            let projectFilesArray = plistDict["ProjectFiles"] as? [[String: String]]
+        else {
+            return nil
+        }
+
+        let jsonData = try? JSONSerialization.data(withJSONObject: projectFilesArray)
+        let projectFiles = try? JSONDecoder().decode([ProjectFile].self, from: jsonData!)
+        return projectFiles
     }
 
     /// Creates and returns a workspace with the Xcode projects from `projectURLs`.

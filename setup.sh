@@ -10,3 +10,4 @@ cp Resources/Verifications.json ~/relish/Verifications.json
 cp Resources/violations.swiftlint.yml ~/relish/.violations.swiftlint.yml
 echo "Installed"
 echo "Please copy Resources/Relish.plist to your project root folder"
+echo "Change path to your projects in Relish.plist"

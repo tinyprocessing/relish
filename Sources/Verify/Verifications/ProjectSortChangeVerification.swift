@@ -12,7 +12,7 @@ struct ProjectSortChangeVerification: ChangeVerification {
     var modifyInPlace: Bool
     var verbose: Bool
 
-    private static let script = "~/.config/relish/xcodeproj_verifications/_cleanup_projects.py"
+    private static let script = "~/.config/relish/xcodeproject/sort.py"
 
     func verify(context: ChangeContext) async throws {
         let unsortedProjects: [ChangeFile] = try await context.files.asyncFilter { file in

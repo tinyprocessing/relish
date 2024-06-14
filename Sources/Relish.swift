@@ -31,7 +31,7 @@ struct Relish: AsyncParsableCommand {
     ) throws -> Configuration where Configuration.RawConfiguration: RelishRawConfiguration {
         let homeDirectoryURL = FileManager.default.homeDirectoryForCurrentUser
         let fileURL = homeDirectoryURL
-            .appendingPathComponent(".config/relish/\(Configuration.RawConfiguration.fileName).json")
+            .appendingPathComponent(".config/relish/\(Configuration.RawConfiguration.fileName.lowercased()).json")
         let json = try JSONDecoder().decode(Configuration.RawConfiguration.self, from: Data(contentsOf: fileURL))
         return try Configuration(from: json)
     }

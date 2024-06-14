@@ -24,7 +24,7 @@ struct Sort: RelishCommand {
         defer {
             console.log(.info("Finished sorting."))
         }
-        let shell = Shell(command: "python3 ~/.config/relish/xcodeproj_verifications/_cleanup_projects.py --all")
+        let shell = Shell(command: "python3 ~/.config/relish/xcodeproject/sort.py --all")
         do {
             let result = try await shell.process()
             console.log(.success("Sort result: \(result)"))

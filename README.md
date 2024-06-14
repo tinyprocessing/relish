@@ -29,6 +29,14 @@ To install Relish, follow these steps:
    ./setup.sh
    ```
 
+Or using homebrew: 
+
+   ```sh
+   brew tap tinyprocessing/tools
+   brew install relish
+   cp -rf /opt/homebrew/opt/relish/share/relish/relish/ ~/.config/relish/
+   ```
+
 ## Usage
 
 After installation, you can access Relish directly from your terminal. To complete the setup process and install dependencies, run:

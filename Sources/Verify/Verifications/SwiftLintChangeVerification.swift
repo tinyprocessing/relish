@@ -23,7 +23,7 @@ struct SwiftLintChangeVerification: ChangeVerification {
         let swiftlintCommand =
             """
             swiftlint lint \
-            --config ~/relish/.violations.swiftlint.yml \
+            --config ~/.config/relish/.violations.swiftlint.yml \
             --use-script-input-files --force-exclude --quiet --strict 2>&1
             """
 
@@ -94,7 +94,7 @@ extension SwiftLintChangeVerification {
                             ),
                             .codeBlock("""
                             swiftlint lint \
-                            --config ~/relish/.violations.swiftlint.yml \
+                            --config ~/.config/relish/.violations.swiftlint.yml \
                             --quiet --fix
                             """)
                         ]

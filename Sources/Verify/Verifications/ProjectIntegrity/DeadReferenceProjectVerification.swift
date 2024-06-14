@@ -7,10 +7,18 @@ struct DeadReferenceProjectVerification: ProjectIntegrityVerification {
     private static let carthageFolder = "Carthage"
 
     var verbose: Bool
+
+    var console: Console<NeverThrows> {
+        Logger.console
+    }
+
     func verifyProject(
         _ projectContext: XcodeWorkspace.ProjectContext,
         using context: ProjectIntegrityWorkspaceContext
     ) throws -> ProjectIntegrityFailure.Issue? {
+        if verbose {
+            console.log(.step("DeadReferenceProjectVerification"))
+        }
         let deadReferences = projectContext.project.pbxproj.fileReferences
             .compactMap { $0.absoluteURL(from: projectContext.projectDirectory) }
             .filter { url in
@@ -20,7 +28,9 @@ struct DeadReferenceProjectVerification: ProjectIntegrityVerification {
                 else {
                     return false
                 }
-
+                if verbose {
+                    console.log(.message("\(url.path) fileExists: \(FileManager.default.fileExists(atPath: url.path))"))
+                }
                 return !FileManager.default.fileExists(atPath: url.path)
             }
 

@@ -86,7 +86,7 @@ extension LargeFileVerification {
                                 please work with UX or your asset provider to better optimize the asset.
 
                                 If this asset is already optimized or the file requires an exception, add the file to \
-                                the exception list in `~/relish/Verifications.json` under `fileSize.exceptions.files`.
+                                the exception list in `~/.config/relish/Verifications.json` under `fileSize.exceptions.files`.
 
                                 See the [Asset Guidelines](\(Self.assetGuidelinesURLString)) documentation for more \
                                 information.

@@ -60,7 +60,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "verify pre-commit"
+            argument = "verify project -v"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

@@ -87,15 +87,17 @@ struct ProjectIntegrityVerifier {
     func verifyProject(_ projectContext: XcodeWorkspace.ProjectContext) throws -> [ProjectIntegrityFailure.Issue] {
         let verifications: [ProjectIntegrityVerification] = [
             DeadReferenceProjectVerification(verbose: verbose),
-            AbsolutePathsProjectVerification()
+            AbsolutePathsProjectVerification(verbose: verbose)
         ]
 
+        console.log(.step("verifyProject \(context.workspace.projectLookup.keys.first ?? "")"))
         return try verifications.compactMap { verification in
             try verification.verifyProject(projectContext, using: context)
         }
     }
 
     func verifyTarget(_ targetContext: XcodeWorkspace.TargetContext) throws -> [ProjectIntegrityFailure.Issue] {
+        console.log(.step("verifyTarget \(context.workspace.targetLookup.keys.first ?? "")"))
         let imports: Set<SwiftImport> = try Set(targetContext.sourceFileURLs.flatMap { file -> [SwiftImport] in
             guard file.pathExtension == "swift",
                   let data = try? Data(contentsOf: file, options: .alwaysMapped)
